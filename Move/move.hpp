@@ -37,7 +37,6 @@ struct chapterOne{
 				isblacksmith;
 			}
 		} 
-		std::cout << random;
 		Sleep(1000);
 	}
 	void goIn(){
