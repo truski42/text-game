@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <stdlib.h>
 #include <conio.h>
@@ -6,11 +7,11 @@
 #include "class.hpp"
 class chooseClass
 {
-private:
-    std::string playerSelect;
-    std::string hero;
-
 public:
+    int playerSelect;
+    int hero;
+    bool isWarrior = false;
+    bool isMage = false;
     void getClass(){
         Warrior p1;
         Mage p2;
@@ -20,14 +21,20 @@ public:
             std::cout << "\nChoose a class: ";
             std::cin >> playerSelect;
         
-                if(playerSelect == "1"){
+                if(playerSelect == 1){
                     system("cls");
+                    isWarrior = true;
+                    hero = 1;
+                    std::cout << isWarrior;
                     std::cout << "You have chosen a Warrior\n" << "Here are your stats:" << std::endl;
                     std::cout << "HP: " << p1.hp << std::endl;
                     std::cout << "Strenght: " << p1.strenght << std::endl;
-                    std::cout << "Agility: " << p1.agility << std::endl; 
-                }else if (playerSelect == "2"){
+                    std::cout << "Agility: " << p1.agility << std::endl;
+                }else if (playerSelect == 2){
                     system("cls");
+                    isMage = true;
+                    hero = 2;
+                    std::cout << isMage;
                     std::cout << "You have chosen a Mage\n" << "Here are your stats:" << std::endl;
                     std::cout << "HP: " << p2.hp << std::endl;
                     std::cout << "Intelligence: " << p2.intelligence << std::endl;
@@ -35,6 +42,6 @@ public:
                 } else{
                     std::cout << "\nPress either '1' or '2', nothing else!";
                 }
-        }while(playerSelect != "1" && playerSelect != "2");
+        }while(playerSelect != 1 && playerSelect != 2);
     }
 };

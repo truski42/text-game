@@ -8,6 +8,7 @@
 #include <windows.h>
 #include "..\Move\move.hpp"
 #include "..\Introduction\langEN.hpp"
+#include "..\Introduction\class.hpp"
 struct walk{ 
 	void explore(){ // this funciton show u walking on screen
 		system("cls");
@@ -21,9 +22,34 @@ struct walk{
 		Sleep(1000);
 	}
 };
+class playerPick: public Warrior{
+    public:
+    bool isWarrior = false;
+    bool isMage = false;
+    void playerClass(bool){
+        hp - 1;
+    }
+};
+struct okey: public chooseClass{
+    
+    void currentClass(){
+    int * playerClass = &playerSelect;
+    std::cout << playerSelect;
+    Warrior w;
+    Mage m;
+    if(playerSelect == 1){
+        std::cout << w.hp;
+    }else if(playerSelect == 2){
+        std::cout << "mag";
+    }
+    }
+};
 struct tavern: public en // structure performing actions in a tavern
 {
-    void tavern_action(){ 
+    Warrior p1;
+    playerPick w;
+    okey h;
+    void tavern_action(){
         int choice;
         system("cls");
         std::cout << "Narrator: You slowly enter the tavern..." << std::endl;
@@ -51,7 +77,8 @@ struct tavern: public en // structure performing actions in a tavern
             Sleep(3000);
             std::cout << "Narrator: You like the local beer so much that you buy three more." << std::endl;
             Sleep(3000);
-            std::cout << "Narrator: After a few beers you are already drunk and get into a fight." << std::endl;            
+            std::cout << "Narrator: After a few beers you are already drunk and get into a fight." << std::endl;
+            h.currentClass();
         } else if (choice == 2){
             system("cls");
             Sleep(1000);
@@ -59,7 +86,11 @@ struct tavern: public en // structure performing actions in a tavern
             Sleep(4000);
             std::cout << "Barman: There's been better years where we've had plenty, and there's been years like this where we can barely get by." << std::endl;
             Sleep(4000);
-            std::cout << "Barman: We don't know if it's because of him, but maybe you can help him.";
+            std::cout << "Barman: We don't know if it's because of him, but maybe you can help him." << std::endl;
+            Sleep(4000);
+            std::cout << "You: How am I supposed to help him?" << std::endl;
+            Sleep(4000);
+            std::cout << "Barman: You'll have to talk to Leo.";
         } else if(choice == 3){
             system("cls");
             std::cout << "Narrator: You leave the tavern";

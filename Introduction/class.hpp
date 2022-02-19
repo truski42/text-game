@@ -1,4 +1,6 @@
+#pragma once
 #include <iostream>
+
 class Warrior{
     public:
     int hp = 10;
