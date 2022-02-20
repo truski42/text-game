@@ -5,11 +5,10 @@
 #include <cstring>
 #include <windows.h>
 #include "class.hpp"
+int playerSelect;
 class chooseClass
 {
 public:
-    int playerSelect;
-    int hero;
     bool isWarrior = false;
     bool isMage = false;
     void getClass(){
@@ -20,11 +19,11 @@ public:
             std::cout << "\n[1]. Warrior [2]. Mage";
             std::cout << "\nChoose a class: ";
             std::cin >> playerSelect;
+            
         
                 if(playerSelect == 1){
                     system("cls");
                     isWarrior = true;
-                    hero = 1;
                     std::cout << isWarrior;
                     std::cout << "You have chosen a Warrior\n" << "Here are your stats:" << std::endl;
                     std::cout << "HP: " << p1.hp << std::endl;
@@ -33,7 +32,6 @@ public:
                 }else if (playerSelect == 2){
                     system("cls");
                     isMage = true;
-                    hero = 2;
                     std::cout << isMage;
                     std::cout << "You have chosen a Mage\n" << "Here are your stats:" << std::endl;
                     std::cout << "HP: " << p2.hp << std::endl;

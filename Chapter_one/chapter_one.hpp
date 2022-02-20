@@ -31,16 +31,17 @@ class playerPick: public Warrior{
     }
 };
 struct okey: public chooseClass{
-    
-    void currentClass(){
-    int * playerClass = &playerSelect;
-    std::cout << playerSelect;
+    int hpw = w.hp;
+    int *zycie;
     Warrior w;
     Mage m;
-    if(playerSelect == 1){
-        std::cout << w.hp;
+    void currentClass(){
+    int hpm = m.hp;
+
+        if(playerSelect == 1){
+        std::cout << hpw << std::endl;
     }else if(playerSelect == 2){
-        std::cout << "mag";
+        std::cout << hpm - 1;
     }
     }
 };
@@ -78,6 +79,9 @@ struct tavern: public en // structure performing actions in a tavern
             std::cout << "Narrator: You like the local beer so much that you buy three more." << std::endl;
             Sleep(3000);
             std::cout << "Narrator: After a few beers you are already drunk and get into a fight." << std::endl;
+            Sleep(3000);
+            std::cout << "Narrator: You were not able to fight and you lose one hp" << std::endl;
+            std::cout << "Narrator: Your current life is: ";
             h.currentClass();
         } else if (choice == 2){
             system("cls");
