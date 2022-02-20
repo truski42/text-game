@@ -31,40 +31,37 @@ class playerPick: public Warrior{
     }
 };
 struct okey: public chooseClass{
-    int hpw = w.hp;
-    int *zycie;
     Warrior w;
     Mage m;
     void currentClass(){
     int hpm = m.hp;
-
-        if(playerSelect == 1){
-        std::cout << hpw << std::endl;
+    if(playerSelect == 1){
+        std::cout << w.hp - 1 << std::endl;
     }else if(playerSelect == 2){
         std::cout << hpm - 1;
     }
     }
 };
-struct tavern: public en // structure performing actions in a tavern
+struct blacksmith: public en // structure making conversation with blacksmith
 {
-    Warrior p1;
-    playerPick w;
-    okey h;
-    void tavern_action(){
-        int choice;
+    void blacksmith_action(){
+        Sleep(2000);
         system("cls");
-        std::cout << "Narrator: You slowly enter the tavern..." << std::endl;
-        Sleep(2000);
-        std::cout << "Narrator: The locals immediately notice that you are a stranger and direct their attention to you. " << std::endl;
+        std::cout << "Blacksmith: Hello " << name << " what brings you to me ?" << std::endl;
         Sleep(4000);
-        std::cout << "Narrator: Behind the counter is a barman." << std::endl;
-        Sleep(2000);
-        std::cout << "\nBarman: Hey " << name << " what to get you ?" << std::endl;
-        Sleep(3000);
-        std::cout << "You: Does everyone in this village already know who I am!?" << std::endl;
-        Sleep(3000);
-        std::cout << "Barman: Why are you so hotheaded ?" << std::endl;
-        Sleep(2000);
+        std::cout << "You: How do you know who I am ?" << std::endl;
+        Sleep(4000);
+        std::cout << "Blacksmith: It's rare for a new face to show up here and our ladies have already started gossiping about the newcomer.";
+    }
+};
+struct menu{
+        Warrior p1;
+        playerPick w;
+        okey h;
+        walk exit;
+        blacksmith talk;
+        int choice;
+        void menuChoice(){
         std::cout << "Barman: Doesn't matter what I give you ?" << std::endl;
         std::cout << "[1]. Beer, please." << std::endl;
         std::cout << "[2]. Tell me a little about your village." << std::endl;
@@ -83,6 +80,9 @@ struct tavern: public en // structure performing actions in a tavern
             std::cout << "Narrator: You were not able to fight and you lose one hp" << std::endl;
             std::cout << "Narrator: Your current life is: ";
             h.currentClass();
+            std::cout << "\n# They throw you out of the tavern";
+            Sleep(4000);
+            exit.explore();
         } else if (choice == 2){
             system("cls");
             Sleep(1000);
@@ -94,29 +94,44 @@ struct tavern: public en // structure performing actions in a tavern
             Sleep(4000);
             std::cout << "You: How am I supposed to help him?" << std::endl;
             Sleep(4000);
-            std::cout << "Barman: You'll have to talk to Leo.";
+            std::cout << "Barman: You'll have to talk to Leo." << std::endl;
+            menuChoice();
         } else if(choice == 3){
-            system("cls");
-            std::cout << "Narrator: You leave the tavern";
+            std::cout << "# You leave the tavern";
             Sleep(2000);
-            walk exit;
             exit.explore();
+            std::cout << "You came across the local blacksmith\n";
+            talk.blacksmith_action();
         }else{
             std::cout << "Narrator: You are doing it wrong, warrior! Press either '1' or '2' or '3', nothing else!" << std::endl;
 			goto retry;
+        }        
         }
-    }
 };
-struct blacksmith: public en // structure making conversation with blacksmith
+struct tavern: public en // structure performing actions in a tavern
 {
-    void blacksmith_action(){
-        Sleep(2000);
+    Warrior p1;
+    playerPick w;
+    okey h;
+    walk exit;
+    blacksmith talk;
+    menu m;
+    void tavern_action(){
+        int choice;
         system("cls");
-        std::cout << "Blacksmith: Hello " << name << " what brings you to me ?" << std::endl;
+        std::cout << "Narrator: You slowly enter the tavern..." << std::endl;
+        Sleep(2000);
+        std::cout << "Narrator: The locals immediately notice that you are a stranger and direct their attention to you. " << std::endl;
         Sleep(4000);
-        std::cout << "You: How do you know who I am ?" << std::endl;
-        Sleep(4000);
-        std::cout << "Blacksmith: It's rare for a new face to show up here and our ladies have already started gossiping about the newcomer.";
+        std::cout << "Narrator: Behind the counter is a barman." << std::endl;
+        Sleep(2000);
+        std::cout << "\nBarman: Hey " << name << " what to get you ?" << std::endl;
+        Sleep(3000);
+        std::cout << "You: Does everyone in this village already know who I am!?" << std::endl;
+        Sleep(3000);
+        std::cout << "Barman: Why are you so hotheaded ?" << std::endl;
+        Sleep(2000);
+        m.menuChoice();
     }
 };
 #endif
