@@ -22,35 +22,24 @@ struct walk{
 		Sleep(1000);
 	}
 };
+/*
+    Warrior statsW;
+    Mage statsM;
+    Hero *info;
+*/
 struct okey: public chooseClass{
-    Warrior w;
-    Mage m;
-    int hpW = w.hp; // taking the life of a warrior
-    int *hpWnow = &hpW;
-    int hpM = m.hp; // taking the life of a mage
-    int *hpMnow = &hpM;
-    int hpnow; // current hp
-    void currentClass(){
-    if(playerSelect == 1){
-       hpnow = *hpWnow - 1;
-        std::cout << hpnow << std::endl;
-    }else if(playerSelect == 2){
-        hpnow = *hpMnow - 1;
-        std::cout << hpnow;
-    }
-    }
 };
 struct blacksmith: public en // structure making conversation with blacksmith
 {
     okey h;
-
+    Warrior statsW;
+    Mage statsM;
+    Hero *infohp;
     void blacksmith_action(){
-        int *hpx = &h.hpnow;
-        int hp;
-        hp = *hpx;
         Sleep(2000);
         system("cls");
-        std::cout << "akutalnie zycie to: " << hp << std::endl;
+        infohp = &statsM;
+        
         std::cout << "Blacksmith: Hello " << name << " what brings you to me ?" << std::endl;
         Sleep(4000);
         std::cout << "You: How do you know who I am ?" << std::endl;
@@ -58,9 +47,11 @@ struct blacksmith: public en // structure making conversation with blacksmith
         std::cout << "Blacksmith: It's rare for a new face to show up here and our ladies have already started gossiping about the newcomer.";
     }
 };
-struct menu{
-        Warrior p1;
+struct menu: public chooseClass{
         okey h;
+        Warrior statsW;
+        Mage statsM;
+        Hero *infoHP;
         walk exit;
         blacksmith talk;
         int choice;
@@ -81,10 +72,15 @@ struct menu{
             std::cout << "Narrator: After a few beers you are already drunk and get into a fight." << std::endl;
             Sleep(3000);
             std::cout << "Narrator: You were not able to fight and you lose one hp" << std::endl;
-            std::cout << "Narrator: Your current life is: ";
-            h.currentClass();
+            if(playerSelect == 1){
+                infoHP = &statsW;
+                infoHP ->losehp();
+            }else if (playerSelect == 2){
+                infoHP = &statsM;
+                infoHP ->losehp();
+            }
             std::cout << "\n# They throw you out of the tavern";
-            Sleep(4000);
+            Sleep(3000);
             exit.explore();
             std::cout << "You came across the local blacksmith\n";
             talk.blacksmith_action();
