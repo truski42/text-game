@@ -22,31 +22,35 @@ struct walk{
 		Sleep(1000);
 	}
 };
-class playerPick: public Warrior{
-    public:
-    bool isWarrior = false;
-    bool isMage = false;
-    void playerClass(bool){
-        hp - 1;
-    }
-};
 struct okey: public chooseClass{
     Warrior w;
     Mage m;
+    int hpW = w.hp; // taking the life of a warrior
+    int *hpWnow = &hpW;
+    int hpM = m.hp; // taking the life of a mage
+    int *hpMnow = &hpM;
+    int hpnow; // current hp
     void currentClass(){
-    int hpm = m.hp;
     if(playerSelect == 1){
-        std::cout << w.hp - 1 << std::endl;
+       hpnow = *hpWnow - 1;
+        std::cout << hpnow << std::endl;
     }else if(playerSelect == 2){
-        std::cout << hpm - 1;
+        hpnow = *hpMnow - 1;
+        std::cout << hpnow;
     }
     }
 };
 struct blacksmith: public en // structure making conversation with blacksmith
 {
+    okey h;
+
     void blacksmith_action(){
+        int *hpx = &h.hpnow;
+        int hp;
+        hp = *hpx;
         Sleep(2000);
         system("cls");
+        std::cout << "akutalnie zycie to: " << hp << std::endl;
         std::cout << "Blacksmith: Hello " << name << " what brings you to me ?" << std::endl;
         Sleep(4000);
         std::cout << "You: How do you know who I am ?" << std::endl;
@@ -56,7 +60,6 @@ struct blacksmith: public en // structure making conversation with blacksmith
 };
 struct menu{
         Warrior p1;
-        playerPick w;
         okey h;
         walk exit;
         blacksmith talk;
@@ -83,6 +86,8 @@ struct menu{
             std::cout << "\n# They throw you out of the tavern";
             Sleep(4000);
             exit.explore();
+            std::cout << "You came across the local blacksmith\n";
+            talk.blacksmith_action();
         } else if (choice == 2){
             system("cls");
             Sleep(1000);
@@ -94,7 +99,7 @@ struct menu{
             Sleep(4000);
             std::cout << "You: How am I supposed to help him?" << std::endl;
             Sleep(4000);
-            std::cout << "Barman: You'll have to talk to Leo." << std::endl;
+            std::cout << "Barman: You'll have to talk to Leo.\n" << std::endl;
             menuChoice();
         } else if(choice == 3){
             std::cout << "# You leave the tavern";
@@ -111,7 +116,6 @@ struct menu{
 struct tavern: public en // structure performing actions in a tavern
 {
     Warrior p1;
-    playerPick w;
     okey h;
     walk exit;
     blacksmith talk;
@@ -129,7 +133,7 @@ struct tavern: public en // structure performing actions in a tavern
         Sleep(3000);
         std::cout << "You: Does everyone in this village already know who I am!?" << std::endl;
         Sleep(3000);
-        std::cout << "Barman: Why are you so hotheaded ?" << std::endl;
+        std::cout << "Barman: Why are you so hotheaded ?\n" << std::endl;
         Sleep(2000);
         m.menuChoice();
     }

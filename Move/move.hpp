@@ -36,6 +36,7 @@ struct chapterOne{
 				std::cout << "You came across the local blacksmith\n";
 				isblacksmith;
 			}
+			std::cout << random;
 		} 
 		Sleep(1000);
 	}

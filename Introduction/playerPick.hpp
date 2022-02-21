@@ -12,8 +12,9 @@ public:
     bool isWarrior = false;
     bool isMage = false;
     void getClass(){
-        Warrior p1;
-        Mage p2;
+        Warrior statsW;
+        Mage statsM;
+        Hero *info;
         do{
             std::cout << "\nWhats your class?"; // choosing class
             std::cout << "\n[1]. Warrior [2]. Mage";
@@ -23,20 +24,16 @@ public:
         
                 if(playerSelect == 1){
                     system("cls");
-                    isWarrior = true;
-                    std::cout << isWarrior;
-                    std::cout << "You have chosen a Warrior\n" << "Here are your stats:" << std::endl;
-                    std::cout << "HP: " << p1.hp << std::endl;
-                    std::cout << "Strenght: " << p1.strenght << std::endl;
-                    std::cout << "Agility: " << p1.agility << std::endl;
+                    std::cout << "You choose a Warrior" << std::endl;
+                    info = &statsW;
+                    info -> currentStats();
+                    Sleep(3000);
                 }else if (playerSelect == 2){
                     system("cls");
-                    isMage = true;
-                    std::cout << isMage;
-                    std::cout << "You have chosen a Mage\n" << "Here are your stats:" << std::endl;
-                    std::cout << "HP: " << p2.hp << std::endl;
-                    std::cout << "Intelligence: " << p2.intelligence << std::endl;
-                    std::cout << "Mana: " << p2.mana << std::endl; 
+                    std::cout << "You choose a Mage" << std::endl;
+                    info = &statsM;
+                    info -> currentStats();
+                    Sleep(3000);
                 } else{
                     std::cout << "\nPress either '1' or '2', nothing else!";
                 }
