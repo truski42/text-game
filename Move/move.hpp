@@ -23,7 +23,7 @@ struct walking{
 };
 
 struct chapterOne{
-	bool istavern = false;
+	/* bool istavern = false; // maybe fix in future
 	bool isblacksmith = false;
 	void random(){ // event draw1
 		int random;
@@ -40,12 +40,15 @@ struct chapterOne{
 		} 
 		Sleep(1000);
 	}
+	*/
 	void goIn(){
-		if(istavern == true){
+		std::cout << "You came across a tavern\n";
+		goinTavern();
+		/*if(istavern == true){ maybe fix in future
 			goinTavern();
 		} else if(istavern == false){
 			goinBlacksmith();
-		}
+		} */
 	}
 	void goinBlacksmith(){
 		blacksmith talk;
@@ -59,6 +62,7 @@ struct chapterOne{
 		retry:
 		std::cout << "[1]. Yes" << std::endl;
 		std::cout << "[2]. No" << std::endl;
+		std::cout << "\nEnter your choice: ";
 		std::cin >> choiceGo_In;
 		if(choiceGo_In == 'y' || choiceGo_In == 'Y'){
 			action.tavern_action();
@@ -91,8 +95,8 @@ struct move: public en
         system("cls");
 	int choiceOne_Path;
 	std::cout << "Narrator: What would you like to do?" << std::endl;
-	std::cout << "\t >> Enter '1' to follow the mayor to city hall." << std::endl;
-	std::cout << "\t >> Enter '2' to look around the village on your own." << std::endl;
+	std::cout << "\t >> Enter '1' to follow the mayor to city hall. [MAIN PLOT]" << std::endl;
+	std::cout << "\t >> Enter '2' to look around the village on your own. [SIDE PLOT]" << std::endl;
 	retry:
 	std::cout << "\nEnter your choice: ";
 	std::cin >> choiceOne_Path;
@@ -114,7 +118,6 @@ struct move: public en
 		system("cls");
 		std::cout << "Walking..." << std::endl;
 		Sleep(1000);
-		r.random();
 		r.goIn();
 	}
 	else
