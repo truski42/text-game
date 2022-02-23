@@ -51,12 +51,12 @@ struct chapterOne{
 		} */
 	}
 	void goinBlacksmith(){
-		blacksmith talk;
-		talk.blacksmith_action();
+		village black;
+		black.blacksmith();
 	}
 	void goinTavern(){ // funcition what we should do
-		tavern action;
-		blacksmith talk;
+		village tavern;
+		village black;
 		char choiceGo_In;
 		std::cout << "Narrator: Do you want to go inside, enter 'y' or 'n'" << std::endl;
 		retry:
@@ -65,11 +65,9 @@ struct chapterOne{
 		std::cout << "\nEnter your choice: ";
 		std::cin >> choiceGo_In;
 		if(choiceGo_In == 'y' || choiceGo_In == 'Y'){
-			action.tavern_action();
+			tavern.tavern();
 		} else if (choiceGo_In == 'n' || choiceGo_In == 'N'){
-			w.explore();
-			std::cout << "You came across the local blacksmith\n";
-			talk.blacksmith_action();
+			black.blacksmith();
 		}else{
 			std::cout << "Narrator: You are doing it wrong, warrior! Press either 'y' or 'n', nothing else!" << std::endl;
 			goto retry;
@@ -102,10 +100,9 @@ struct move: public en
 	std::cin >> choiceOne_Path;
 	if(choiceOne_Path == 1)
 	{
-		std::cout << "\n!!!----------------------Chapter One: East Hatley----------------------!!!" << std::endl;
+		std::cout << "\n# You run behind the mayor." << std::endl;
 		std::cout << "\nYou: Why are you leading me to city hall??" << std::endl;
 		std::cout << "Mayor: Soon you will know. Just follow me." << std::endl;
-		std::cout << "# You run behind the mayor." << std::endl;
 	}
 	else if(choiceOne_Path == 2)
 	{

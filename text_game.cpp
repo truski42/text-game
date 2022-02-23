@@ -7,7 +7,6 @@
 #include "Introduction\playerPick.hpp"
 #include "Introduction\dialog.hpp"
 #include "Move\move.hpp"
-
 int main(){
     srand( time( NULL ) );
     en menuEN;
