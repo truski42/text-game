@@ -15,9 +15,9 @@ void tavern();
 void tavernMenu();
 void blacksmith();
 void blacksmithMenu();
-class village{
+class village: public town_hall{
     public:
-    int choice;
+    int choice, ok;
     Hero *infoHP;
     Warrior statsW;
     Mage statsM;
@@ -142,7 +142,6 @@ class village{
                 std::cout << "# You leave the blacksmith";
                 Sleep(4000);
                 walk();
-                next.HUD();
                 // need to do funciton about next chapter
             } else if(playerSelect == 2){
                 std::cout << "[1]. Staff [+1 inteligence, -1 coin]" << std::endl;
@@ -152,7 +151,6 @@ class village{
                 Sleep(4000);
                 std::cout << "# You leave the blacksmith";
                 walk();
-                next.HUD();
             }
         } else if (choice == 2){
             system("cls");
@@ -171,7 +169,6 @@ class village{
             std::cout << "# You leave the blacksmith";
             Sleep(2000);
             walk();
-            next.HUD();
         } 
         else {
             std::cout << "Narrator: You are doing it wrong, warrior! Press either '1' or '2' or '3', nothing else!" << std::endl;

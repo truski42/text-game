@@ -8,6 +8,7 @@
 #include <windows.h>
 #include "..\Introduction\langEN.hpp"
 #include "..\Chapter_one\chapter_one.hpp"
+#include "..\Chapter_two\chapter_two.hpp"
 struct walking{ 
 	void explore(){ // this funciton show u walking on screen
 		system("cls");
@@ -89,6 +90,7 @@ struct chapterOne{
 struct move: public en
 {
 	chapterOne r;
+	town_hall next;
     void movePlayer(){ // here we are doing first chapter decision
         system("cls");
 	int choiceOne_Path;
@@ -103,6 +105,7 @@ struct move: public en
 		std::cout << "\n# You run behind the mayor." << std::endl;
 		std::cout << "\nYou: Why are you leading me to city hall??" << std::endl;
 		std::cout << "Mayor: Soon you will know. Just follow me." << std::endl;
+		next.nextChapter();
 	}
 	else if(choiceOne_Path == 2)
 	{
@@ -122,8 +125,6 @@ struct move: public en
 		std::cout << "You are doing it wrong, warrior! Press either '1' or '2', nothing else!" << std::endl;
 		goto retry;
 	}
-	std::cout << "\n----------------------Press any key to continue----------------------" << std::endl;
-	_getch();
     }
 };
 #endif
