@@ -56,9 +56,11 @@ class village{
             }
         } else if (playerSelect == 2){
             if(choice == 1){
+            infoHP = &statsM;
             std::cout << "Mayor: Thank you for being so brave and being able to help us. " << std::endl;
 			infoHP ->addLike();
             } else if(choice == 2){
+            infoHP = &statsM;
             std::cout << "Mayor: Thanks, my lord, for your kindness.... " << std::endl;
 			infoHP ->minusLike();
             } else{
@@ -250,8 +252,8 @@ class village{
                 std::cout << "[2]. Magic robe [+1 health, -1 coin]" << std::endl;
                 std::cout << "[3]. Ring [+1 mana, -1 coin]" << std::endl;
                 infoHP ->addStats();
-                Sleep(4000);
                 std::cout << "# You leave the blacksmith";
+                Sleep(4000);
                 walk();
                 town_hall();
             }
