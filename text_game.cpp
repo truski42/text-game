@@ -5,19 +5,15 @@
 #include <windows.h>
 #include "Introduction\langEN.hpp"
 #include "Introduction\playerPick.hpp"
-#include "Introduction\dialog.hpp"
-#include "Move\move.hpp"
+#include "Main\main.hpp"
 int main(){
     srand( time( NULL ) );
     en menuEN;
-    smallTalk dialog;
     chooseClass player;
-    move move;
-    town_hall next;
+    village move;
     std::cout << "\n----------------------WELCOME TO TEXT GAME----------------------\n";
     menuEN.introducitonEN(); // intro
     player.getClass(); // player choose class
-    dialog.dialog(); // first diolog with mayor
-    move.movePlayer(); // first chapter
-    next.nextChapter(); // second chapter
+    move.dialog();
+    move.movePlayer(); // main
 }

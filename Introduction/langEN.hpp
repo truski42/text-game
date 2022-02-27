@@ -1,6 +1,6 @@
 #pragma once
+#ifndef LANGEN_HPP_
 #define LANGEN_HPP_ 
-#ifdef LANGEN_HPP_
 #include <iostream>
     char nick[50];
     char *name = nick;
