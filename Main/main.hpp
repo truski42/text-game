@@ -18,18 +18,48 @@ void blacksmith();
 void blacksmithMenu();
 void town_hall();
 void HUD();
+void witch();
+void forest();
 class village{
     public:
-    int choice;
+    int choice, witchChoice;
     Hero *infoHP;
     Warrior statsW;
     Mage statsM;
 ///////////////////////////////////////////////
-// HUD //
-    void HUD(){
-
-    }
 // OTHER STUFF //
+    void witch(){ // potions for second chapter
+    system("cls");
+    std::cout << "# After a few minutes you spot a store and enter it" << std::endl;
+    std::cout << "Hello young man, what for you ?" << std::endl;
+    std::cout << "[1]. Show me your stuff." << std::endl;
+    std::cout << "[2]. Exit" << std::endl;
+    retry:
+    std::cout << "\nEnter your choice: ";
+    std::cin >> choice;
+    if(choice == 1){
+        if(playerSelect == 1){
+            infoHP ->addPotion();
+            std::cout << "Thanks for your purchase";
+            Sleep(2000);
+            walk();
+            forest();
+            }else if (playerSelect == 2){
+            infoHP ->addPotion();
+            std::cout << "Thanks for your purchase";
+            Sleep(2000);
+            walk();
+            forest();
+            }
+    } else if(choice == 2){
+        walk();
+        forest();
+    } else {
+        std::cout << "Narrator: You are doing it wrong, warrior! Press either '1' or '2', nothing else!" << std::endl;
+		goto retry;
+    }
+    system("pause>0");
+    }
 ///////////////////////////////////////////////
 // INTRO //
     void dialog(){ // FIRST DIALOG
@@ -38,8 +68,7 @@ class village{
         std::cout << "# Mayor: Hi " << name << ". What brings you to our village ?" << std::endl;
         do{
         std::cout << "\t >> [1]. I was looking for new adventures and new assignments. [+1 likability level]" << std::endl;
-        std::cout << "\t >> [2]. I just got lost on my way back home and ended up in your village. [+1 likability level]" << std::endl;
-        std::cout << "\t >> [3]. What do you care. [-1 likability level]" << std::endl;
+        std::cout << "\t >> [2]. What do you care. [-1 likability level]" << std::endl;
         std::cout << "\nMake your choice: "; // Making choice for 
         std::cin >> choice;
         if(playerSelect == 1){
@@ -106,16 +135,27 @@ class village{
 		goto retry;
 	}
     }
-    void walk(){// exploring
+    void walk(){// walking
         system("cls");
 		std::cout << "Walking." << std::endl;
-		Sleep(1000);
+		Sleep(500);
 		system("cls");
 		std::cout << "Walking.." << std::endl;
-		Sleep(1000);
+		Sleep(500);
 		system("cls");
 		std::cout << "Walking..." << std::endl;
-		Sleep(1000);
+		Sleep(500);
+    }
+    void search(){// exploring
+        system("cls");
+		std::cout << "Searching." << std::endl;
+		Sleep(500);
+		system("cls");
+		std::cout << "Searching.." << std::endl;
+		Sleep(500);
+		system("cls");
+		std::cout << "Searching..." << std::endl;
+		Sleep(500);
     }
 // START CHAPTER ONE //
 	void goinTavern(){ // option for go in
@@ -215,14 +255,14 @@ class village{
         Sleep(4000);
         std::cout << "Blacksmith: It's rare for a new face to show up here and our ladies have already started gossiping about the newcomer." << std::endl;
         Sleep(4000);
-        if(playerSelect == 1){
+        /*if(playerSelect == 1){
                 infoHP = &statsW;
                 infoHP ->currentStats();
                 Sleep(2000);
         }else if (playerSelect == 2){
                 infoHP = &statsM;
                 infoHP ->currentStats();
-        }
+        }*/
         Sleep(2000);
         blacksmithMenu();        
         }
@@ -245,7 +285,6 @@ class village{
                 Sleep(4000);
                 walk();
                 town_hall();
-                // need to do funciton about next chapter
             } else if(playerSelect == 2){
                 system("cls");
                 std::cout << "[1]. Staff [+1 inteligence, -1 coin]" << std::endl;
@@ -287,13 +326,15 @@ class village{
         system("cls");
         std::cout << "# After a few minutes, you finally arrived at the town hall." << std::endl;
         std::cout << "\nMayor: Well, " << name << " I have a very important matter for you." << std::endl;
+        Sleep(4000);
         std::cout << "You: What's the matter ?" << std::endl;
         std::cout << "Mayor: Namely, from time to time we are attacked by monsters from the nearby forest," << std::endl;
         std::cout << "with difficulty we managed to repel the previous attack" << std::endl;
         std::cout << "You: Okey, I think I know what you're getting at. " << std::endl;
         std::cout << "Mayor: Are you able to help us deal with the monsters ?" << std::endl;
+        std::cout << "Mayor: Of course you'll get a good reward." << std::endl;
 
-        std::cout << "[1]. Sure, I'd love to help you. [+1 likability level]" << std::endl;
+        std::cout << "\n[1]. Sure, I'd love to help you. [+1 likability level]" << std::endl;
         std::cout << "[2]. Nah, now that I'm here, let's go. [-1 likability level]" << std::endl;
         retry:
         std::cout << "\nEnter your choice: ";
@@ -325,16 +366,44 @@ class village{
 			goto retry;
             }
         }
-        /*if(playerSelect == 1){ 
-            infoHP = &statsW;
-            infoHP ->currentStats();
-            Sleep(2000);
-        }else if (playerSelect == 2){
-            infoHP = &statsM;
-            infoHP ->currentStats();
-            }
-        */
-        system("pause>0");
+        do{ // go to forest or witch
+        std::cout << "\nMayor: So what's your plan now ?" << std::endl;
+        std::cout << "[1]. I'm going to go fight monsters immediately." << std::endl;
+        std::cout << "[2]. I'm going to go look around for more potions." << std::endl;
+        std::cout << "\nEnter your choice: ";
+        std::cin >> choice;
+        if(choice == 1){
+            std::cout << "Mayor: Fantastic, hope it goes well with them.";
+            walk();
+        } else if(choice == 2){
+            std::cout << "Mayor: Of course, we have one witch here, she has a store near the town hall.";
+            walk();
+            witch();
+        } else{
+            std::cout << "Narrator: You are doing it wrong, warrior! Press either '1' or '2', nothing else!" << std::endl;
+        }
+        }while(choice != 1 && choice != 2);
+    }
+    void forest(){
+        system("cls");
+        std::cout << "# You leave the village" << std::endl;
+        Sleep(2000);
+        std::cout << "# After a few hours you get to the place Leo showed you on the map" << std::endl;
+        Sleep(2000);
+        std::cout << "# You set up camp and go for a short nap" << std::endl;
+        Sleep(2000);
+        std::cout << "# Suddenly you are awakened by an unfamiliar sound" << std::endl;
+        Sleep(2000);
+        std::cout << "You: Fuck, they won't even let you rest" << std::endl;
+        Sleep(3000);
+    }
+// HUD //
+    void HUD(){
+        if(playerSelect == 1){
+            infoHP ->HUD();
+        } else if(playerSelect == 2){
+            infoHP ->HUD();
+        }
     }
 };
 #endif

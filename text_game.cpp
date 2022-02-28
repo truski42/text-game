@@ -11,9 +11,13 @@ int main(){
     en menuEN;
     chooseClass player;
     village move;
+    system("cls");
     std::cout << "\n----------------------WELCOME TO TEXT GAME----------------------\n";
     menuEN.introducitonEN(); // intro
     player.getClass(); // player choose class
-    move.dialog();
-    move.movePlayer(); // main
+    move.dialog(); // first dialog
+    move.movePlayer(); // first and second chapter
+    ////////////////////////////////////////////////////////////////////////////////////
+
+    move.HUD();
 }
