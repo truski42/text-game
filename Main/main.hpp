@@ -396,13 +396,23 @@ class village{
         Sleep(2000);
         std::cout << "You: Fuck, they won't even let you rest" << std::endl;
         Sleep(3000);
+        std::cout << "\n----------------------Press any key to move on----------------------" << std::endl;
+        _getch();
     }
 // HUD //
     void HUD(){
+        system("cls");
         if(playerSelect == 1){
             infoHP ->HUD();
         } else if(playerSelect == 2){
             infoHP ->HUD();
+        }
+    }
+    void actionForest(){
+        if(playerSelect == 1){
+            infoHP ->actionForest();
+        } else if(playerSelect == 2){
+            infoHP ->actionForest();
         }
     }
 };

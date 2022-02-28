@@ -5,6 +5,9 @@
 #include "playerPick.hpp"
 class Hero{
     public:
+    std::string monsterName [5] = { "Witch", "Werewolf", "Goblin", "Centaur", "Dwarf"};
+    int currentMonsterNames = 5;
+    std::string currentMonster = " ";
     int shopChoice, coins, choice, potion, totalPotion;
     virtual void addStats() = 0;
     virtual void losehp() = 0;
@@ -13,11 +16,13 @@ class Hero{
     virtual void minusLike() = 0;
     virtual void addPotion() = 0;
     virtual void HUD() = 0;
+    virtual void actionForest() = 0;
+    //virtual void CreatMonster() = 0;
 };
 class Warrior: public Hero{
     public:
-    int hp = 10, strenght = 6, agility = 5, coins = 10, like = 0, totalLike = like, smallPotion = 0, middPotion = 0, bigPotion = 0;
-    int level = 0, xp = 0, maxHealth = 0, nextLevel = 0, heal = 0, totalHP = hp;
+    int hp = 100, strenght = 6, agility = 5, coins = 10, like = 0, totalLike = like, smallPotion = 0, middPotion = 0, bigPotion = 0;
+    int level = 0, xp = 0, maxHealth = 0, nextLevel = 0, heal = 0, totalHP = hp, temp;
     virtual void currentStats(){ // info about stats
         std::cout << "Name: " << name << "         Health: " << totalHP << std::endl;
         std::cout << "Strenght: " << strenght << std::endl;
@@ -60,7 +65,7 @@ class Warrior: public Hero{
         totalLike = totalLike - 1;
         std::cout << "# Likability level is: " << totalLike << std::endl;
     }
-    virtual void addPotion(){
+    virtual void addPotion(){ // adding 1 bottle of potion 
         retry:
         std::cout << "[1]. Small HP bottle [+1 HP, -1 coin]" << std::endl;
         std::cout << "[2]. Medium HP bottle [+2 HP, -3 coin]" << std::endl;
@@ -83,19 +88,50 @@ class Warrior: public Hero{
             goto retry;
         }
     }
-    virtual void HUD(){
+    virtual void HUD(){ // HUD player in forest
+        nextLevel = 70;
         std::cout << "Name: " << name << "         Health: " << totalHP << std::endl;
-        std::cout << "Strenght: " << strenght << std::endl;
-        std::cout << "Agility: " << agility << std::endl;
-        std::cout << "Level: " << level << std::endl;
-        std::cout << "XP: " << xp << std::endl;
-        std::cout << "XP to level up: " << nextLevel << std::endl;
-        std::cout << "Coins: " << coins;
+        std::cout << "Level: " << level << "         Coins: " << coins << std::endl;
+        std::cout << "XP: " << xp << "         Strenght: " << strenght << std::endl;
+        std::cout << "XP to level up: " << nextLevel << "         Agility: " << agility << std::endl;
+        actionForest();
+    }
+    virtual void actionForest(){
+        std::cout << "[1]. Searching the front area" << std::endl;
+        std::cout << "[2]. Rest" << std::endl;
+        std::cout << "[3]. Searching the backwards area";
+        std::cout << "\n\n";
+
+        std::cin >> choice;
+
+        if(choice == 1){
+            temp = rand() % 100 + 1;
+            std::cout << "# You begin search forward...\n";
+            if(temp >= 50){
+                //CreatMonster();
+                std::string tempName = monsterName[rand() % currentMonsterNames];
+                std::cout << "A " << tempName << "| Prepare to fight\n";
+                currentMonster = tempName;
+                Sleep(1000);
+                //Combat();
+            }
+            std::cout << "# You found nothing interest\n";
+            Sleep(1000);
+            HUD();
+        } else if(choice == 2){
+
+        } else if(choice == 3){
+
+        }else{
+            std::cout << "Invalid number";
+            Sleep(500);
+            actionForest();
+        }
     }
 };
 class Mage: public Hero{
     public:
-    int hp = 6, inteligence = 10, mana = 5, coins = 10, like = 0, totalLike = like, smallPotion = 0, middPotion = 0, bigPotion = 0;
+    int hp = 60, inteligence = 10, mana = 5, coins = 10, like = 0, totalLike = like, smallPotion = 0, middPotion = 0, bigPotion = 0;
     int level = 0, xp = 0, maxHealth = 0, nextLevel = 0, heal = 0, totalHP = hp;
     virtual void currentStats(){ // info about stats
         std::cout << "HP: " << totalHP << std::endl;
@@ -139,7 +175,7 @@ class Mage: public Hero{
         totalLike = totalLike - 1;
         std::cout << "# Likability level is: " << totalLike << std::endl;
     }
-    virtual void addPotion(){
+    virtual void addPotion(){ // adding 1 bottle of potion 
         retry:
         std::cout << "[1]. Small HP bottle [+1 HP, -1 coin]" << std::endl;
         std::cout << "[2]. Medium HP bottle [+2 HP, -3 coin]" << std::endl;
@@ -162,7 +198,17 @@ class Mage: public Hero{
             goto retry;
         }
     }
-    virtual void HUD(){
+    virtual void HUD(){ // HUD player in forest
+        nextLevel = 70;
+        std::cout << "Name: " << name << "         Health: " << totalHP << std::endl;
+        std::cout << "Level: " << level << "         Coins: " << coins << std::endl;
+        std::cout << "XP: " << xp << "         Inteligence: " << inteligence << std::endl;
+        std::cout << "XP to level up: " << nextLevel << "         Mana: " << mana << std::endl;
+    }
+    virtual void actionForest(){
+
+    }
+    virtual void CreatMonster(){
 
     }
 };

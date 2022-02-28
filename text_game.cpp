@@ -18,6 +18,6 @@ int main(){
     move.dialog(); // first dialog
     move.movePlayer(); // first and second chapter
     ////////////////////////////////////////////////////////////////////////////////////
-
     move.HUD();
+    move.actionForest();
 }
