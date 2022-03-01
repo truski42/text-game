@@ -33,8 +33,11 @@ class Warrior: public Hero{
     int current_xp = 0, base_xp = 83, xp_to_level = base_xp, minLevel = 1, maxLevel = 20;
     virtual void currentStats(){ // info about stats
         std::cout << "Health: " << totalHP << std::endl;
+        Sleep(150);
         std::cout << "Strenght: " << strenght << std::endl;
+        Sleep(150);
         std::cout << "Agility: " << agility << std::endl;
+        Sleep(150);
         std::cout << "Coins: " << coins << "         Likability level: " << totalLike << std::endl;
     }
     virtual void losehp(){ // losing hp
@@ -186,7 +189,7 @@ class Warrior: public Hero{
                     std::cout << "You failed to run away\n";
                     std::cout << "Monster does a savage attack on you!\n";
                     totalHP -= monsterAttack + 10;
-                    std::cout << "You suffered" << monsterAttack + 10 << "Your current Health is " << totalHP << std::endl;
+                    std::cout << "You suffered " << monsterAttack + 10 << "Your current Health is " << totalHP << std::endl;
                     Sleep(1000);
                     Combat();
                 }
@@ -222,7 +225,7 @@ class Warrior: public Hero{
         } else if(choice == 2){
             std::cout << "You want to set up camp for the evening\n";
             if(totalHP <=99){
-                totalHP += 10 * level;
+                totalHP += 5 * level;
             }
             std::cout << "You healed by resting. Health is now: " << totalHP << std::endl; 
             Sleep(1000);
@@ -259,6 +262,20 @@ class Warrior: public Hero{
             }
             maxHealth = totalHP;
             std::cout << "Wait whats this a level up! you are now level " << level << std::endl;
+            std::cout << "You have 1 power point to give away" << std::endl;
+            retry:
+            std::cout << "[1]. +1 Strenght" << std::endl;
+            std::cout << "[2]. +1 Agility" << std::endl;
+            std::cin >> choice;
+            if(choice == 1){
+                strenght += 1;
+                std::cout << "now u have " << strenght;
+            } else if(choice == 2){
+                agility += 1;
+                std::cout << "now u have " << agility;
+            } else {
+                goto retry;
+            }
             std::cout << "Your total health increased now your health is " << totalHP << std::endl;
             std::cout << "\n";
             Sleep(1000);
