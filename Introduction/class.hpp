@@ -3,6 +3,7 @@
 #define CLASS_HPP_
 #include <iostream>
 #include "playerPick.hpp"
+#include <math.h>
 class Hero{
     public:
     std::string monsterName [5] = { "Witch", "Werewolf", "Goblin", "Centaur", "Dwarf"};
@@ -20,11 +21,16 @@ class Hero{
     virtual void CreateMonster() = 0;
     virtual void Combat() = 0;
     virtual void CombatHUD() = 0;
+    virtual void LevelUP() = 0;
 };
 class Warrior: public Hero{
     public:
-    int hp = 100, strenght = 6, agility = 5, coins = 10, like = 0, totalLike = like, smallPotion = 0, middPotion = 0, bigPotion = 0;
-    int level = 0, xp = 0, maxHealth = 0, nextLevel = 0, heal = 0, totalHP = hp, temp;
+    // STATS
+    int hp = 100, strenght = 6, agility = 5, coins = 10, like = 0, totalLike = like, smallPotion = 0, middPotion = 0, bigPotion = 0, totalHP = hp, temp;
+    // LVL, XP etc
+    int level = 1, maxHealth = totalHP, heal = 0;
+    
+    int current_xp = 0, base_xp = 83, xp_to_level = base_xp, minLevel = 1, maxLevel = 20;
     virtual void currentStats(){ // info about stats
         std::cout << "Health: " << totalHP << std::endl;
         std::cout << "Strenght: " << strenght << std::endl;
@@ -90,17 +96,107 @@ class Warrior: public Hero{
             goto retry;
         }
     }
+////////////////////////////////////////////////////////////////////////////////
+                            //CHAPTER FOREST//
     virtual void HUD(){ // HUD player in forest
-        nextLevel = 70;
-        level = 1;
-        xp = 0;
-        maxHealth = totalHP;
-        std::cout << "Name: " << name << "                       |Health: " << totalHP << std::endl;
-        std::cout << "Level: " << level << "                     |Coins: " << coins << std::endl;
-        std::cout << "XP: " << xp << "                           |Strenght: " << strenght << std::endl;
-        std::cout << "XP to level up: " << nextLevel << "        |Agility: " << agility << std::endl;
+        std::cout << "Name: " << name << "              |Health: " << totalHP << std::endl;
+        std::cout << "Level: " << level << "                  |Coins: " << coins << std::endl;
+        std::cout << "XP: " << current_xp << "                     |Strenght: " << strenght << std::endl;
+        std::cout << "XP to level up: " << xp_to_level << "        |Agility: " << agility << std::endl;
         actionForest();
     }
+    virtual void CombatHUD(){
+        Sleep(500);
+        system("cls");
+        std::cout << "Name: " << name << "    |       Monster Name: " << currentMonster << "\nHealth: " << totalHP << "      |       Monster Health: " <<
+            monsterHP << "\nLevel: " << level << "        |       Monster Level: " << monsterLevel << std::endl;
+    }
+    virtual void Combat(){
+
+        CombatHUD();
+        int playerAttack;
+        int playerDamage = strenght;
+        int monsterAttack = 6 * monsterLevel / 2;
+
+        if(totalHP >= 1 && monsterHP >= 1){
+            std::cout << "\n";
+            std::cout << "[1]. Attack\n";
+            std::cout << "[2]. Block\n";
+            std::cout << "[3]. RUN!\n";
+            std::cout << "\n";
+            std::cin >> playerAttack;
+
+            if(playerAttack == 1){//ATTACK
+                std::cout << "Attacking... you did " << playerDamage << " to the " << currentMonster << std::endl;
+                monsterHP = monsterHP - playerDamage;
+                Sleep(2000);
+                CombatHUD();
+                    if(monsterHP >= 1){
+                        std::cout << "\n";
+                        std::cout << "Monster is Attacking...\n";
+                        totalHP = totalHP - monsterAttack;
+                        std::cout << "You suffered " << monsterAttack << " hp " << totalHP << std::endl;
+                        //change to fuction
+                        if(totalHP <= 0){
+                            totalHP = 0;
+                            system("cls");
+                            std::cout << "You died! \nYou were level: " << level << " you got killed by " << currentMonster << std::endl;
+                            Sleep(2000);
+                            exit(0);                            
+                        }
+                    } else if (monsterHP <= 0){
+                        monsterHP = 0;
+                        std::cout << "\n";
+                        std::cout << "You Defeated " << currentMonster << " you are rewarded with " << monsterXP << " xp.\nWell Done!\n";
+                        
+                        if(level != maxLevel){
+                            current_xp += monsterXP;
+                            LevelUP();
+                        }
+
+                        Sleep(2000);   
+                        HUD();                      
+                    }
+                    Sleep(2000);
+                    Combat();
+            } else if(playerAttack == 2){//BLOCK
+                std::cout << "Blocking\n";
+                int i = rand() % agility + 1;
+                if(i >= agility){
+                    std::cout << "You Blocked the incoming attack\n";
+                    heal = level * 10 / 2;
+                    std::cout << "You have been Healed for " << heal << std::endl;
+                    totalHP += heal;
+                    Sleep(1000);
+                    Combat();
+                }else {
+                    std::cout << "You failed to block the savage attack\n";
+                    totalHP -= monsterAttack;
+                    std::cout << "You were stabbed in the back for " << monsterAttack << " current hp " << totalHP << std::endl;
+                    Sleep(1000);
+                    Combat(); 
+                }
+            } else if(playerAttack == 3){//RUN
+                std::cout << "You try to run\n";
+                int x = rand() % 100 + 1;
+                if(x >= 50){
+                    std::cout << "You run away\n";
+                    HUD();
+                } else {
+                    std::cout << "You failed to run away\n";
+                    std::cout << "Monster does a savage attack on you!\n";
+                    totalHP -= monsterAttack + 10;
+                    std::cout << "You suffered" << monsterAttack + 10 << "Your current Health is " << totalHP << std::endl;
+                    Sleep(1000);
+                    Combat();
+                }
+            }else{
+                std::cout << "Invalid number";
+                Sleep(500);
+                Combat();
+            }
+        }
+    }    
     virtual void actionForest(){ // Searching for monsters in forest
         std::cout << "[1]. Searching the front area" << std::endl;
         std::cout << "[2]. Rest" << std::endl;
@@ -150,20 +246,32 @@ class Warrior: public Hero{
             Sleep(500);
             actionForest();
         }
+    }    
+    virtual void LevelUP(){ // LVL UP
+        if(current_xp >= xp_to_level){
+            xp_to_level += floor(level + 25 * pow(2, level / 7));
+            totalHP = floor(totalHP + 13 * pow(2, level /8));
+
+            if(level >= minLevel && level <= maxLevel){
+                level++;
+            } else{
+                level = 20;
+            }
+            maxHealth = totalHP;
+            std::cout << "Wait whats this a level up! you are now level " << level << std::endl;
+            std::cout << "Your total health increased now your health is " << totalHP << std::endl;
+            std::cout << "\n";
+            Sleep(1000);
+            LevelUP();
+        }
+            Sleep(2000);
+            HUD();
     }
-    virtual void CreateMonster(){
+    virtual void CreateMonster(){ // Create Monsters
         monsterHP = 30;
+
         monsterLevel = (rand() % 3) + level;
-        
-        //if(monsterLevel == 0){
-        //    monsterLevel = (rand() % 3 + level);
-        //}
-
-        monsterHP = (rand() % 30) * totalHP;
-
-        //if(monsterHP == 0){
-        //    monsterHP = (rand() % 30) * totalHP;
-        //}
+        monsterHP = (rand() % 30) * monsterLevel;
 
         monsterXP = monsterHP;
 
@@ -172,87 +280,7 @@ class Warrior: public Hero{
         if(monsterLevel == 0)
             CreateMonster();
     }
-    virtual void CombatHUD(){
-        Sleep(500);
-        system("cls");
-        std::cout << "Name: " << name << "      |       Monster Name: " << currentMonster << "\nHealth: " << totalHP << "      |       Monster Health: " <<
-            monsterHP << "\nLevel: " << level << "      |       Monster Level: " << monsterLevel << std::endl;
-    }
-    virtual void Combat(){
-
-        CombatHUD();
-        int playerAttack;
-        int playerDamage = strenght;
-        int monsterAttack = strenght * monsterLevel / 2;
-
-        if(totalHP >= 1 && monsterHP >= 1){
-            std::cout << "\n";
-            std::cout << "[1]. Attack\n";
-            std::cout << "[2]. Block\n";
-            std::cout << "[3]. RUN!\n";
-            std::cout << "\n";
-            std::cin >> playerAttack;
-
-            if(playerAttack == 1){
-                //ATTACK
-                std::cout << "Attacking... you did" << playerDamage << "to the " << currentMonster << std::endl;
-                monsterHP = monsterHP - playerDamage;
-                Sleep(1000);
-                CombatHUD();
-                    if(monsterHP >= 1){
-                        std::cout << "\n";
-                        std::cout << "Monster is Attacking...\n";
-                        totalHP = totalHP - monsterAttack;
-                        std::cout << "You suffered " << monsterAttack << "hp " << totalHP << std::endl;
-                        //change to fuction
-                        if(totalHP <= 0){
-                            totalHP = 0;
-                        }
-                    } else if (monsterHP <=0){
-                        monsterHP = 0;
-                    }
-                    Sleep(1000);
-                    Combat();
-            } else if(playerAttack == 2){
-                //BLOCK
-                std::cout << "Blocking\n";
-                int i = rand() % agility + 1;
-                if(i >= agility){
-                    std::cout << "You Blocked the incoming attack\n";
-                    heal = level * 10 / 2;
-                    std::cout << "You have been Healed for " << heal << std::endl;
-                    totalHP += heal;
-                    Sleep(1000);
-                    Combat();
-                }else {
-                    std::cout << "You failed to block the savage attack\n";
-                    totalHP -= monsterAttack;
-                    std::cout << "You were stabbed in the back for " << monsterAttack << " current hp " << totalHP << std::endl;
-                    Sleep(1000);
-                    Combat(); 
-                }
-            } else if(playerAttack == 3){
-                //RUN
-                std::cout << "You try to run\n";
-                int x = rand() % 100 + 1;
-                if(x >= 50){
-                    std::cout << "You run away\n";
-                    HUD();
-                } else {
-                    std::cout << "You failed to run away\n";
-                    std::cout << "Monster does a savage attack on you!\n";
-                    totalHP -= monsterAttack + 10;
-                    std::cout << "You suffered" << monsterAttack + 10 << "Your current Health is " << totalHP << std::endl;
-                    Sleep(1000);
-                    Combat();
-                }
-            }else{
-                std::cout << "Invalid number";
-                Sleep(500);
-                Combat();
-            }
-        }
-    }
+///////////////////////////////////////////////////////////////////////////////
 };
 class Mage: public Hero{
     public:
@@ -383,5 +411,6 @@ class Mage: public Hero{
     virtual void CreateMonster(){}
     virtual void CombatHUD(){}
     virtual void Combat(){}
+    virtual void LevelUP(){}
 };
 #endif
