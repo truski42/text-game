@@ -13,6 +13,7 @@ int main(){
     village move;
     system("cls");
     std::cout << "\n----------------------WELCOME TO TEXT GAME----------------------\n";
+    
     menuEN.introducitonEN(); // intro
     player.getClass(); // player choose class
     

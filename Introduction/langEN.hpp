@@ -12,7 +12,9 @@ class en {
         std::string Intro_story = "# You have set out on a long journey in search of new adventures and a good income,\n"
         "because your village has been taken over by the enemy army and all the settlers have been exterminated.\n"
         "After several long and exhausting days of wandering,\n"
-        "you came upon a settlement, where you were greeted by the local mayor.\n";
+        "you came upon a settlement, where you were greeted by the local mayor.\n"
+        "Mayor: Hello, my name is Leo, I'm the village chief here.\n"
+        "Mayor: What's your name, stranger ?\n\n";
         if(Intro)
         {
             int i = 0;
@@ -23,10 +25,6 @@ class en {
             }
             Intro = false;
         }
-    std::cout << "Mayor: Hello, my name is Leo, I'm the village chief here." << std::endl;
-    Sleep(150);
-    std::cout << "Mayor: What's your name, stranger?" << std::endl; // insert name.
-    Sleep(150);
     std::cout << "Enter your name: ";
     Sleep(150);
     std::cin.getline(nick, 50);

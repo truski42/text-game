@@ -22,22 +22,20 @@ class Hero{
     virtual void Combat() = 0;
     virtual void CombatHUD() = 0;
     virtual void LevelUP() = 0;
+    virtual void Trader() = 0;
 };
 class Warrior: public Hero{
     public:
     // STATS
-    int hp = 100, strenght = 6, agility = 5, coins = 10, like = 0, totalLike = like, smallPotion = 0, middPotion = 0, bigPotion = 0, totalHP = hp, temp;
+    int hp = 100, strenght = 7, agility = 5, coins = 10, like = 0, totalLike = like, smallPotion = 0, middPotion = 0, bigPotion = 0, totalHP = hp, temp, trader;
     // LVL, XP etc
     int level = 1, maxHealth = totalHP, heal = 0;
     
     int current_xp = 0, base_xp = 83, xp_to_level = base_xp, minLevel = 1, maxLevel = 20;
     virtual void currentStats(){ // info about stats
         std::cout << "Health: " << totalHP << std::endl;
-        Sleep(150);
         std::cout << "Strenght: " << strenght << std::endl;
-        Sleep(150);
         std::cout << "Agility: " << agility << std::endl;
-        Sleep(150);
         std::cout << "Coins: " << coins << "         Likability level: " << totalLike << std::endl;
     }
     virtual void losehp(){ // losing hp
@@ -55,8 +53,8 @@ class Warrior: public Hero{
             std::cout << "Narrator: Your current strenght is: " << strenght << " your coins: " << coins << std::endl;
         } else if (shopChoice == 2){
             coins = coins - 1;
-            totalHP = totalHP + 1;
-            std::cout << "Narrator: You have purchased a Plate armor which gives you +1 to health" << std::endl;
+            totalHP = totalHP + 5;
+            std::cout << "Narrator: You have purchased a Plate armor which gives you +5 to health" << std::endl;
             std::cout << "Narrator: Your current hp is: " << totalHP << " your coins: " << coins << std::endl;      
         } else if(shopChoice == 3){
             coins = coins - 1;
@@ -120,6 +118,7 @@ class Warrior: public Hero{
         int playerAttack;
         int playerDamage = strenght;
         int monsterAttack = 6 * monsterLevel / 2;
+        int monsterCoins = rand() % monsterLevel;
 
         if(totalHP >= 1 && monsterHP >= 1){
             std::cout << "\n";
@@ -151,6 +150,8 @@ class Warrior: public Hero{
                         monsterHP = 0;
                         std::cout << "\n";
                         std::cout << "You Defeated " << currentMonster << " you are rewarded with " << monsterXP << " xp.\nWell Done!\n";
+                        coins += monsterCoins;
+                        std::cout << "In dead body you find " << monsterCoins << " coin now you have " << coins << " coins\n";
                         
                         if(level != maxLevel){
                             current_xp += monsterXP;
@@ -189,7 +190,7 @@ class Warrior: public Hero{
                     std::cout << "You failed to run away\n";
                     std::cout << "Monster does a savage attack on you!\n";
                     totalHP -= monsterAttack + 10;
-                    std::cout << "You suffered " << monsterAttack + 10 << "Your current Health is " << totalHP << std::endl;
+                    std::cout << "You suffered " << monsterAttack + 10 << " Your current Health is " << totalHP << std::endl;
                     Sleep(1000);
                     Combat();
                 }
@@ -207,10 +208,14 @@ class Warrior: public Hero{
         std::cout << "\n\n";
 
         std::cin >> choice;
-
         if(choice == 1){
             temp = rand() % 100 + 1;
+            trader = rand() % 50 + 1;
             std::cout << "# You begin search forward...\n";
+            if(trader == 10 && trader == 20 && trader == 30 && trader == 40){
+                std::cout << "# You foud Travelling salesman";
+            }
+            std::cout << ".";   
             if(temp >= 50){
                 CreateMonster();
                 std::string tempName = monsterName[rand() % currentMonsterNames];
@@ -224,8 +229,8 @@ class Warrior: public Hero{
             HUD();
         } else if(choice == 2){
             std::cout << "You want to set up camp for the evening\n";
-            if(totalHP <=99){
-                totalHP += 5 * level;
+            if(totalHP <= 99){
+                totalHP = maxHealth;
             }
             std::cout << "You healed by resting. Health is now: " << totalHP << std::endl; 
             Sleep(1000);
@@ -252,15 +257,12 @@ class Warrior: public Hero{
     }    
     virtual void LevelUP(){ // LVL UP
         if(current_xp >= xp_to_level){
-            xp_to_level += floor(level + 25 * pow(2, level / 7));
-            totalHP = floor(totalHP + 13 * pow(2, level /8));
-
+            xp_to_level += floor(level + 40 * pow(2, level / 7));
             if(level >= minLevel && level <= maxLevel){
                 level++;
             } else{
                 level = 20;
             }
-            maxHealth = totalHP;
             std::cout << "Wait whats this a level up! you are now level " << level << std::endl;
             std::cout << "You have 1 power point to give away" << std::endl;
             retry:
@@ -276,6 +278,8 @@ class Warrior: public Hero{
             } else {
                 goto retry;
             }
+            totalHP = totalHP + 20;
+            maxHealth = totalHP;
             std::cout << "Your total health increased now your health is " << totalHP << std::endl;
             std::cout << "\n";
             Sleep(1000);
@@ -284,10 +288,13 @@ class Warrior: public Hero{
             Sleep(2000);
             HUD();
     }
+    virtual void Trader(){
+
+    }
     virtual void CreateMonster(){ // Create Monsters
         monsterHP = 30;
 
-        monsterLevel = (rand() % 3) + level;
+        monsterLevel = (rand() % 4) + level;
         monsterHP = (rand() % 30) * monsterLevel;
 
         monsterXP = monsterHP;
@@ -429,5 +436,6 @@ class Mage: public Hero{
     virtual void CombatHUD(){}
     virtual void Combat(){}
     virtual void LevelUP(){}
+    virtual void Trader(){}
 };
 #endif
