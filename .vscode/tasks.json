@@ -4,7 +4,7 @@
         {
             "type": "cppbuild",
             "label": "C/C++: cpp.exe kompiluj aktywny plik",
-            "command": "C:\\msys64\\mingw64\\bin\\cpp.exe",
+            "command": "C:\\msys64\\mingw64\\bin\\g++.exe",
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
@@ -19,7 +19,7 @@
                 "$gcc"
             ],
             "group": "build",
-            "detail": "kompilator: C:\\msys64\\mingw64\\bin\\cpp.exe"
+            "detail": "kompilator: C:\\msys64\\mingw64\\bin\\g++.exe"
         },
         {
             "type": "cppbuild",

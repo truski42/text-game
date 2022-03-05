@@ -67,19 +67,19 @@ class village{
         system("cls");
         std::cout << "# Mayor: Hi " << name << ". What brings you to our village ?" << std::endl;
         do{
-        std::cout << "\t >> [1]. I was looking for new adventures and new assignments. [+1 likability level]" << std::endl;
-        std::cout << "\t >> [2]. What do you care. [-1 likability level]" << std::endl;
+        std::cout << "\t >> [1]. I was looking for new adventures and new assignments. [+1 moral]" << std::endl;
+        std::cout << "\t >> [2]. What do you care. [-1 moral]" << std::endl;
         std::cout << "\nMake your choice: "; // Making choice for 
         std::cin >> choice;
         if(playerSelect == 1){
             if(choice == 1){
 			infoHP = &statsW;
             std::cout << "Mayor: Thank you for being so brave and being able to help us. " <<  std::endl;
-            infoHP ->addLike();
+            infoHP ->addmoral();
             } else if(choice == 2){
             infoHP = &statsW;
             std::cout << "Mayor: Thanks, my lord, for your kindness.... " << std::endl;
-            infoHP ->minusLike();
+            infoHP ->minusmoral();
             } else{
             std::cout << "Narrator: You are doing it wrong, warrior! Press either '1' or '2', nothing else!" << std::endl;
             }
@@ -87,11 +87,11 @@ class village{
             if(choice == 1){
             infoHP = &statsM;
             std::cout << "Mayor: Thank you for being so brave and being able to help us. " << std::endl;
-			infoHP ->addLike();
+			infoHP ->addmoral();
             } else if(choice == 2){
             infoHP = &statsM;
             std::cout << "Mayor: Thanks, my lord, for your kindness.... " << std::endl;
-			infoHP ->minusLike();
+			infoHP ->minusmoral();
             } else{
             std::cout << "Narrator: You are doing it wrong, warrior! Press either '1' or '2', nothing else!" << std::endl;
             }
@@ -278,7 +278,7 @@ class village{
             if(playerSelect == 1){
                 system("cls");
                 std::cout << "[1]. Long sword [+1 strenght, -1 coin]" << std::endl;
-                std::cout << "[2]. Plate armor [+1 health, -1 coin]" << std::endl;
+                std::cout << "[2]. Plate armor [+5 health, -1 coin]" << std::endl;
                 std::cout << "[3]. Light boots [+1 agility, -1 coin]" << std::endl;
                 infoHP ->addStats();
                 std::cout << "# You leave the blacksmith";
@@ -334,8 +334,8 @@ class village{
         std::cout << "Mayor: Are you able to help us deal with the monsters ?" << std::endl;
         std::cout << "Mayor: Of course you'll get a good reward." << std::endl;
 
-        std::cout << "\n[1]. Sure, I'd love to help you. [+1 likability level]" << std::endl;
-        std::cout << "[2]. Nah, now that I'm here, let's go. [-1 likability level]" << std::endl;
+        std::cout << "\n[1]. Sure, I'd love to help you. [+1 moral]" << std::endl;
+        std::cout << "[2]. Nah, now that I'm here, let's go. [-1 moral]" << std::endl;
         retry:
         std::cout << "\nEnter your choice: ";
         std::cin >> choice;
@@ -343,11 +343,11 @@ class village{
             if(choice == 1){
             infoHP = &statsW;
             std::cout << "Mayor: Thank you for being so brave and being able to help us. " << std::endl;
-            infoHP ->addLike();
+            infoHP ->addmoral();
             } else if(choice == 2){
             infoHP = &statsW;
             std::cout << "Mayor: Thanks, my lord, for your kindness.... " << std::endl;
-            infoHP ->minusLike();
+            infoHP ->minusmoral();
             } else{
             std::cout << "Narrator: You are doing it wrong, warrior! Press either '1' or '2', nothing else!" << std::endl;
 			goto retry;
@@ -356,16 +356,19 @@ class village{
             if(choice == 1){
             infoHP = &statsM;
             std::cout << "Mayor: Thank you for being so brave and being able to help us. " << std::endl;
-            infoHP ->addLike();
+            infoHP ->addmoral();
             } else if(choice == 2){
             infoHP = &statsM;
             std::cout << "Mayor: Thanks, my lord, for your kindness.... " << std::endl;
-            infoHP ->minusLike();
+            infoHP ->minusmoral();
             } else{
             std::cout << "Narrator: You are doing it wrong, warrior! Press either '1' or '2', nothing else!" << std::endl;
 			goto retry;
             }
         }
+        std::cout << "\n----------------------Press any key to move on----------------------" << std::endl;
+        _getch();
+        system("cls");
         do{ // go to forest or witch
         std::cout << "\nMayor: So what's your plan now ?" << std::endl;
         std::cout << "[1]. I'm going to go fight monsters immediately." << std::endl;
