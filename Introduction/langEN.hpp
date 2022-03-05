@@ -2,12 +2,14 @@
 #ifndef LANGEN_HPP_
 #define LANGEN_HPP_ 
 #include <iostream>
+#include <iomanip>
     char nick[50];
     char *name = nick;
     bool Intro = true;
-class en {
+class en{
     
-    public: 
+    public:
+     
     void introducitonEN(){
         std::string Intro_story = "# You have set out on a long journey in search of new adventures and a good income,\n"
         "because your village has been taken over by the enemy army and all the settlers have been exterminated.\n"

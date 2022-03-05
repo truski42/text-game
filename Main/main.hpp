@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <conio.h>
 #include <cstring>
+#include <iomanip>
 #include <windows.h>
 #include "..\Introduction\langEN.hpp"
 #include "..\Introduction\class.hpp"
@@ -27,7 +28,7 @@ class village{
     Warrior statsW;
     Mage statsM;
 ///////////////////////////////////////////////
-// OTHER STUFF //
+// OTHER STUFF // 
     void witch(){ // potions for second chapter
     system("cls");
     std::cout << "# After a few minutes you spot a store and enter it" << std::endl;
@@ -40,18 +41,21 @@ class village{
     if(choice == 1){
         if(playerSelect == 1){
             infoHP ->addPotion();
-            std::cout << "Thanks for your purchase";
+            std::cout << "Thanks for your purchase" << std::endl;
+            std::cout << "# You leave the store";
             Sleep(2000);
             walk();
             forest();
             }else if (playerSelect == 2){
             infoHP ->addPotion();
             std::cout << "Thanks for your purchase";
+            std::cout << "# You leave the store";
             Sleep(2000);
             walk();
             forest();
             }
     } else if(choice == 2){
+        std::cout << "# You leave the store";
         walk();
         forest();
     } else {
@@ -278,7 +282,7 @@ class village{
             if(playerSelect == 1){
                 system("cls");
                 std::cout << "[1]. Long sword [+1 strenght, -1 coin]" << std::endl;
-                std::cout << "[2]. Plate armor [+5 health, -1 coin]" << std::endl;
+                std::cout << "[2]. Plate armor [+5 health, -2 coin]" << std::endl;
                 std::cout << "[3]. Light boots [+1 agility, -1 coin]" << std::endl;
                 infoHP ->addStats();
                 std::cout << "# You leave the blacksmith";
@@ -288,7 +292,7 @@ class village{
             } else if(playerSelect == 2){
                 system("cls");
                 std::cout << "[1]. Staff [+1 inteligence, -1 coin]" << std::endl;
-                std::cout << "[2]. Magic robe [+1 health, -1 coin]" << std::endl;
+                std::cout << "[2]. Magic robe [+5 health, -2 coin]" << std::endl;
                 std::cout << "[3]. Ring [+1 mana, -1 coin]" << std::endl;
                 infoHP ->addStats();
                 std::cout << "# You leave the blacksmith";
@@ -402,7 +406,6 @@ class village{
         std::cout << "\n----------------------Press any key to move on----------------------" << std::endl;
         _getch();
     }
-// HUD //
     void HUD(){
         system("cls");
         if(playerSelect == 1){
@@ -412,11 +415,13 @@ class village{
         }
     }
     void actionForest(){
+        forest();
         if(playerSelect == 1){
             infoHP ->actionForest();
         } else if(playerSelect == 2){
             infoHP ->actionForest();
         }
     }
+//////////////////////////////////////////////
 };
 #endif
